@@ -1,0 +1,61 @@
+<html>
+<head></head>
+<body>
+	<form name="form1">
+		<h2>Add New Contact</h2>
+		<table border="0">
+			<tr>
+				<td>Id:</td>
+				<td><input type="text" name="id" /></td>
+			</tr>
+			<tr>
+				<td>Firstname:</td>
+				<td><input type="text" name="firstname" /></td>
+			</tr>
+			<tr>
+				<td>Lastname:</td>
+				<td><input type="text" name="lastname" /></td>
+			</tr>
+			<tr>
+				<td>Phone Number:</td>
+				<td><input type="text" name="phoneno" /></td>
+			</tr>
+			<tr>
+				<td>Email Id:</td>
+				<td><input type="text" name="email" /></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="add"
+					onclick="addContact(this.form)" /></td>
+				<td><input type="reset" value="clear" /></td>
+			</tr>
+
+		</table>
+	</form>
+		<a href="index.html"> View All Contacts </a> 
+
+</body>
+</html>
+
+<script type="text/javascript">
+	function addContact(form) {
+		var contact = {
+			"id" : form.id.value,
+			"firstname" : form.firstname.value,
+			"lastname" : form.lastname.value,
+			"phoneno" : form.phoneno.value,
+			"email" : form.email.value
+		};
+		console.log(contact);
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "/contact", true);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.send(JSON.stringify(contact));
+
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				alert(this.responseText);
+			}
+		};
+	}
+</script>

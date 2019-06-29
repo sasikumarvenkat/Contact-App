@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Sample Contacts Application</title>
+</head>
+<body>
+	<div id="div1"></div>
+	<a href="addContact.html"> Add New Contact </a> 
+</body>
+</html>
+<script type="text/javascript">
+	document.getElementById("div1").innerHTML = "<h2> Hello World! </h2>";
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var data = JSON.parse(this.responseText);
+			console.log(data);
+			var htmlStr = "<table border=2 cellspacing=5 cellpadding=5> <tr> <th> Id </th> <th> Firstname </th> <th> Lastname </th> <th> Phone No </th> <th> Email </th> </tr>";
+			for(var i in data){
+				var contact=data[i];
+				htmlStr = htmlStr + "<tr> <td>" + contact.id +" </td><td> " + contact.firstname + " </td><td> " + contact.lastname 
+				+ " </td><td> " + contact.phoneno + " </td><td> " + contact.email + " </td> </tr>"
+			}
+			htmlStr = htmlStr + "</table>"
+			document.getElementById("div1").innerHTML =htmlStr;
+		}
+	};
+	xhttp.open("GET", "/contact", true);
+	xhttp.send();
+</script>
